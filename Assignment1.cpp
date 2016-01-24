@@ -26,7 +26,7 @@ struct item
             bool   wantSale;
 };
 
-int main()
+int main( int argv, char *argc[] )
 {
     item itemArray[100];
     int  loopIterations = 0;
