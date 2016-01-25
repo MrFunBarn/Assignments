@@ -24,14 +24,15 @@ using namespace std;
 
 struct item
 {           string type;
-            float  price;
-            bool   wantSale;
+            string  price;
+            string wantSale;
 };
 
 int main( int argc, char *argv[] )
 {
     item      itemArray[100];
     int       loopIterations = 0;
+    int       i1             = 0;
     string    inFile;
     ifstream  file;
     string    line;
@@ -51,8 +52,13 @@ int main( int argc, char *argv[] )
             return 1;
         }
     }
-
-// Read in file.
-
-
+    stringstream ss(line);
+    while( getline(inFile, line, ',') ){
+        ss >> itemArray[i1].type;
+        ss >> itemArray[i1].wantSale;
+        ss >> itemArray[i1].price;
+        i1++;
+        loopIterations++;
+        cout << itemArray[i1].type << endl;
+    }
 }
