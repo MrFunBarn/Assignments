@@ -17,6 +17,8 @@
  */
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -26,9 +28,31 @@ struct item
             bool   wantSale;
 };
 
-int main( int argv, char *argc[] )
+int main( int argc, char *argv[] )
 {
-    item itemArray[100];
-    int  loopIterations = 0;
+    item      itemArray[100];
+    int       loopIterations = 0;
+    string    inFile;
+    ifstream  file;
+    string    line;
+
+
+// Check for the correct number of cmd line arguments and if correct, atempt to
+// open the specified file.
+    if( argc != 2 ){
+        cout << "Incorrect number of arguments" << endl;
+        cout << "Usage: " << argv[0] << " filename" << endl;
+        return 1;
+    }
+    else{
+        ifstream inFile ( argv[1] );
+        if( !inFile.is_open() ){
+            cout << "Could not open file" << endl;
+            return 1;
+        }
+    }
+
+// Read in file.
+
 
 }
