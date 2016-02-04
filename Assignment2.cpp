@@ -58,31 +58,27 @@ word_data *add_word_to_array( word_data array[],
                               int &size, 
                               int &wordnum, 
                               int &numdouble ){
-    bool isThere = true;
+    int index = wordnum;
     // search the array and if there ++ the count variable.
     for( int i=0; i < wordnum; i++ ){
         if( value == array[i].word ){
             array[i].count++;
-            isThere = true;
-            break;
+            return array;
         }
     }
     // adding the word to the array and doubleing the array if nessasry.
-    if( (size > wordnum) && isThere == false ){
-        cout << size << endl;
-        cout << wordnum << endl;
+    if( size > wordnum ){
         array[wordnum].word = value;
         array[wordnum].count = 1;
         wordnum++;
-    cout << array[wordnum].word << endl;
-    cout << "this far" << endl;
+        return array;
     }
-    else if( isThere == false ){
-        cout << "this far" << endl;
+    else{
         array = double_array( array, size, numdouble );
         array[wordnum].word = value;
         array[wordnum].count = 1;
         wordnum++;
+        return array;
     } 
 }
 
@@ -121,7 +117,11 @@ int main( int argc, char *argv[] ){
                                                arraySize,
                                                numWords,
                                                doubles );
+
                 }
+            for( int i=0; i<numWords; i++ ){
+                cout << words[i].word << " " << words[i].count << endl;
+            }
             }
         }
     }
