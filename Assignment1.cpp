@@ -137,11 +137,11 @@ int main( int argc, char *argv[] )
                         itemArray[i1].price = temp.price;
                         itemArray[i1].wantSale = temp.wantSale;
                     }
-                    search_array(temp,itemArray, i1, loopIterations,
-                                 numElements);
                 }
                 commaI++;
             }
+            search_array(temp,itemArray, i1, loopIterations,
+                                 numElements);
         //    cout<< itemArray[i1].wantSale << itemArray[i1].type;
          //   cout << itemArray[i1].price << endl;
             i1++;

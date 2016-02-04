@@ -41,7 +41,7 @@ word_data *double_array( word_data original[], int &size ){
     int       newSize  = 2 * size;
     word_data *new_one = new word_data[newSize];
 
-    for( int i=0; i < size; i++){
+    for( int i=0; i < size; i++ ){
         new_one[i] = original[i];
     }
     delete []original;
@@ -50,8 +50,13 @@ word_data *double_array( word_data original[], int &size ){
     return original;
 }
 
+// Find or add word to word_data array. If a word is allready in the word data
+// array, increment it's count value.
+word_data *add_word_array( string value ){
 
-int main(int argc, char *argv[]){
+}
+
+int main( int argc, char *argv[] ){
     if( argc != 2 ){
         cout << "Incorect # of arguments." << endl;
         cout << "Usage: " << argv[0] << "FileToAnalyze" << endl;
