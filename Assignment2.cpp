@@ -17,11 +17,12 @@ struct word_data
         int    count;
 };
 
+
 // Determine if the word is one of the 50 most common words in the english
 // language and return a booliean value.
 bool is_common_word(string x){
     string common[] =  {"the","be","to","of","and","a","in","that","have",
-                        "I","it","for","not","on","with","he","as","you",
+                        "i","it","for","not","on","with","he","as","you",
                         "do","at","this","but","his","by","from","they",
                         "we","say","her","she","or","an","will","my",
                         "one","all","would","there","their","what",
@@ -35,6 +36,7 @@ bool is_common_word(string x){
     }
     return false;
 }
+
 
 // Double the the size of a 1d input array of word_data structs. 
 word_data *double_array( word_data original[], int &size, int &doubles ){
@@ -50,6 +52,7 @@ word_data *double_array( word_data original[], int &size, int &doubles ){
     doubles++;
     return original;
 }
+
 
 // Find or add word to word_data array. If a word is allready in the word data
 // array, increment it's count value.
@@ -82,12 +85,35 @@ word_data *add_word_to_array( word_data array[],
     } 
 }
 
+
+// buble sort the array.
+word_data *bubble_sort_array( word_data array[], int &wordnum ){
+    cout << "Sorting" << endl;
+    for( int i=0; i < wordnum; i++){
+        for( int j=0; j < (wordnum - i - 1 ); j++ ){
+            if( array[j].count > array[ j+1 ].count ){
+                word_data swap;
+                swap.word = array[j].word;
+                swap.count = array[j].count;
+
+                array[j].word = array[ j+1 ].word;
+                array[j].count = array[ j+1 ].count;
+
+                array[ j+1 ].word = swap.word;
+                array[ j+1 ].count = swap.count;
+            }
+        }
+    }
+    return array;
+}
+
+
 int main( int argc, char *argv[] ){
     // variable declarations.
     string        word;
     string        line;
     bool          common;
-    int           arraySize  = 2;
+    int           arraySize  = 100;
     int           numWords   = 0;
     int           doubles    = 0;
     word_data     *words     = new word_data[arraySize];
@@ -119,10 +145,11 @@ int main( int argc, char *argv[] ){
                                                doubles );
 
                 }
-            for( int i=0; i<numWords; i++ ){
-                cout << words[i].word << " " << words[i].count << endl;
-            }
             }
         }
+    }
+    words = bubble_sort_array( words, numWords );
+    for( int i=0; i<numWords; i++ ){
+        cout << words[i].word << " " << words[i].count << endl;
     }
 }
