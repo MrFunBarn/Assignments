@@ -33,7 +33,9 @@ class CommunicationNetwork
         ~CommunicationNetwork();
         void addCity(std::string, std::string);
         void buildNetwork();
-        void transmitMsg(); //this is like a string
+        void deleteCity(std::string);
+        void deleteNetwork();
+        void transmitMsg(char *); //this is like a string
         void printNetwork();
     protected:
     private:

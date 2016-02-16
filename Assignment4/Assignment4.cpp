@@ -10,7 +10,8 @@
 #include <sstream>
 using namespace std;
 
-int main(){
+int main(int argc, char *argv[]){
+    // instantiate network and define loop variables.
     CommunicationNetwork network;
     int option = 0;
     ifstream inFile;
@@ -21,7 +22,7 @@ int main(){
         cout<<"======Main Menu======"<< endl
             <<"1. Build Network"<< endl
             <<"2. Print Network Path"<< endl
-            <<"3. Transmit Message Coast-To-Coast"<< endl
+            <<"3. Transmit Message Coast-To-Coast-To-Coast"<< endl
             <<"4. Add City"<< endl
             <<"5. Delete City"<< endl
             <<"6. Clear Network"<< endl
@@ -42,7 +43,7 @@ int main(){
             network.printNetwork();
         }
         else if( option == 3 ){
-            network.transmitMsg();
+            network.transmitMsg( argv[1] );
         }
         else if( option == 4 ){
             string name;
@@ -53,8 +54,19 @@ int main(){
             getline( cin,previous );
             network.addCity(name,previous);
         }
+        else if( option == 5 ){
+            string name;
+            cout<<"Enter a city name: "<<endl;
+            getline( cin,name );
+            network.deleteCity(name);
+        }
+        else if( option == 6 ){
+            network.deleteNetwork();
+        }
         else if( option == 7 ){
             cout<<"Goodbye!"<<endl;
+            network.deleteNetwork();
         }
     }
+return 0;
 }
