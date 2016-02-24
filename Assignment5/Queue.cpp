@@ -10,6 +10,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 using namespace std;
 
 Queue::Queue(int quesize)
@@ -54,13 +55,15 @@ void Queue::printQueue(){
     //    if( queueHead < queueTail ){
     //        for(int i=queueHead; i<queueTail; i++){
     //            cout<<arrayQueue 
-    int tmp = queueHead;
-//    while(tmp != queueTail){
-    int dex = queueTail;
-    dex = (dex) % queueSize;
-    while(tmp != dex){
-        cout<<tmp<<": "<<arrayQueue[tmp]<<endl;
-        tmp = (tmp+1) % queueSize;
+    //int tmp = abs(queueHead-(queueCount-1));
+    //int tmp = queueCount;
+    //while(tmp != queueTail){
+    //    cout<<tmp<<": "<<arrayQueue[tmp]<<endl;
+    //    tmp = (tmp+1) % queueSize;
+    //}
+    for(int i=0; i<queueCount; i++){
+        int dex = (queueHead + i) % queueSize;
+        cout<<dex<<": "<<arrayQueue[dex]<<endl;
     }
     if( queueCount == 0 ){
         cout<<"Empty"<<endl;
