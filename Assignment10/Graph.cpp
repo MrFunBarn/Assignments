@@ -22,58 +22,44 @@ Graph::Graph(char *file){
     string edge;
 
     ifstream inFile(file);
-    ifstream infile(file);
     getline( inFile, line );
     stringstream vert(line);
     // Build the vector of vertex structs.
-    int id = 0;
     while( getline( vert, city, ',' ) ){
         // skip the cities label at the start of the line.
         if( city == "cities" ){
-            id++;
             continue;
         }
-        vertex City;
-        City.name = city;
-        City.ID = id;
-        // Loop through matrix lines and find the edges for City.
-        int j = 0;
-        while( getline( infile, Edges ) ){
-            // parse the line to translate the edge values into the adjVertex
-            // vector.
-            stringstream edges(Edges);
-            int i = 0;
-            string cityedge;
-            while( getline( edges, edge, ',' ) ){
-                if( i ==0 ){
-                    cityedge = edge;
-                }
-                if( i != id ){
-                    i++;
-                    continue;
-                }
+        addVertex(city);
+    }
+    // Loop through matrix lines and find the edges for City.
+    while( getline( inFile, Edges ) ){
+        // parse the line to translate the edge values into the adjVertex
+        // vector.
+        stringstream edges(Edges);
+        int i = 0;
+        string cityedge;
+        while( getline( edges, edge, ',' ) ){
+            // grab the name of the city on the start of this row.
+            if( i ==0 ){
+                cityedge = edge;
+            }
+            else{
+                // convert weight to int.
                 int ed;
                 stringstream eds(edge);
                 eds >> ed;
-                if( ed >=0 ){
-                    adjVertex tmp;
-                    tmp.weight = ed;
-                    //tmp.v->name = cityedge;
-                    //tmp.v->ID = j+1; // +1 to comp for first line in file.
-                    cout<<City.name<<' '<<cityedge<<' '<<ed<<endl;
-                    City.adj.push_back(tmp);
+                // only grab edges with weights > than 0.
+                if( ed > 0 ){
+                    addEdge(cityedge,vertices[i-1].name,ed);
                 }
-                i++;
             }
-            j++;
+            i++;
         }
-        vertices.push_back(City);
-        //cout<<vertices[id-1].name<<endl;
-        //cout<<vertices[id-1].adj[0].weight<<endl;
-        id++;
     }
-    //cout<<vertices[1].adj[0].weight<<endl;
-    //cout<<vertices[1].adj[1].weight<<endl;
+    int x = 14;
+    int y = 2;
+    cout<<vertices[x].name<<' '<<vertices[x].adj[y].v->name<<' '<<vertices[x].adj[y].weight<<endl;
 }
 
 
@@ -82,10 +68,34 @@ Graph::~Graph(){
 
 
 void Graph::addEdge(std::string v1, std::string v2, int weight){
+    for( int i=0; i < vertices.size(); i++ ){
+        if( vertices[i].name == v1 ){
+            for( int j=0; j < vertices.size(); j++ ){
+                if( vertices[j].name == v2 && i != j ){
+                    adjVertex tmp;
+                    tmp.v = &vertices[j];
+                    tmp.weight = weight;
+                    vertices[i].adj.push_back(tmp);
+                }
+            }
+        }
+    }
 }
 
 
 void Graph::addVertex(std::string name){
+    bool found = false;
+    for( int i=0; i < vertices.size(); i++ ){
+        if( vertices[i].name == name ){
+            found = true;
+            break;
+        }
+    }
+    if( found == false ){
+        vertex City;
+        City.name = name;
+        vertices.push_back(City);
+    }
 }
 
 
