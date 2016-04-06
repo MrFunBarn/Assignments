@@ -16,7 +16,7 @@ using namespace std;
 // The basic structure of this main function was taken from my assignments 5.
 int main(int argc, char *argv[]){
     // instantiate Graph instance, and menu selection variables.
-    MovieTree blockbuster(argv[1]);
+    Graph zombies(argv[1]);
     int option = 0;
 
     // The main loop. runs until quit is selected.
@@ -41,16 +41,13 @@ int main(int argc, char *argv[]){
             string word;
             cout<<"Enter title:";
             getline( cin, word );
-            blockbuster.findMovie(word);
         }
         else if( option == 2 ){
             string word;
             cout<<"Enter title:";
             getline( cin, word );
-            blockbuster.rentMovie(word);
         }
         else if( option == 3 ){
-            blockbuster.printMovieInventory();
         }
         else if( option == 4 ){
             cout << "Goodbye!" << endl;

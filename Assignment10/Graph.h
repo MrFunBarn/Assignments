@@ -41,7 +41,7 @@ struct queueVertex{
 class Graph
 {
     public:
-        Graph();
+        Graph(char *);
         ~Graph();
         void addEdge(std::string v1, std::string v2, int weight);
         void addVertex(std::string name);
