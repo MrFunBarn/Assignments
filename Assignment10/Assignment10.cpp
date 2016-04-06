@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
     // The main loop. runs until quit is selected.
     while( option != 4 ){
         // Print the main menu.
-        cout<<"======Main Menu====="<< endl
+        cout<<"======Main Menu======"<< endl
             <<"1. Print vertices"<< endl
             <<"2. Find districts"<< endl
             <<"3. Find shortest path"<< endl
@@ -38,14 +38,10 @@ int main(int argc, char *argv[]){
 
         // Processes option and apply the relevent method.
         if( option == 1 ){
-            string word;
-            cout<<"Enter title:";
-            getline( cin, word );
+            zombies.displayEdges();
         }
         else if( option == 2 ){
-            string word;
-            cout<<"Enter title:";
-            getline( cin, word );
+            zombies.assignDistricts();
         }
         else if( option == 3 ){
         }

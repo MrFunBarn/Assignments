@@ -9,7 +9,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include<vector>
+#include <vector>
+#include <queue>
 
 #include "Graph.h"
 using namespace std;
@@ -57,9 +58,9 @@ Graph::Graph(char *file){
             i++;
         }
     }
-    int x = 14;
-    int y = 2;
-    cout<<vertices[x].name<<' '<<vertices[x].adj[y].v->name<<' '<<vertices[x].adj[y].weight<<endl;
+    //int x = 14;
+    //int y = 2;
+    //cout<<vertices[x].name<<' '<<vertices[x].adj[y].v->name<<' '<<vertices[x].adj[y].weight<<endl;
 }
 
 
@@ -94,20 +95,67 @@ void Graph::addVertex(std::string name){
     if( found == false ){
         vertex City;
         City.name = name;
+        City.visited = false;
+        City.district = 0;
         vertices.push_back(City);
     }
 }
 
 
 void Graph::displayEdges(){
+    for( int i=0; i<vertices.size(); i++ ){
+        cout<<vertices[i].district<<':'<<vertices[i].name<<"-->";
+        for( int j=0; j<vertices[i].adj.size(); j++ ){
+            cout<<vertices[i].adj[j].v->name;
+            if( j != vertices[i].adj.size()-1 ){
+                cout<<"***";
+            }
+        }
+        cout<<endl;
+    }
 }
 
 
 void Graph::assignDistricts(){
+    int ID = 1;
+    for( int i=0; i < vertices.size(); i++ ){
+        if( vertices[i].visited == false ){
+            BFTraversalLabel( vertices[i].name, ID );
+            ID++;
+        }
+    }
 }
 
 
 void Graph::shortestPath(std::string startingCity, std::string endingCity){
+    vertex v1;
+    vertex v2;
+    bool f1 = false;
+    bool f2 = false;
+    // serach for the starting and ending vertexes.
+    for( int i=0; i<vertices.size(); i++ ){
+        if( vertices[i].name == startingCity ){
+            v1 = vertices[i];
+            f1 = true;
+        }
+        if( vertices[i].name == endingCity ){
+            v2 = vertices[i];
+            f2 = true;
+        }
+    }
+    if( f1 == false || f2 == false ){
+        cout<<"One or more cities doesn't exist"<<endl;
+        return;
+    }
+    if( v1.district != v2.district ){
+        cout<<"No safe path between cities"<<endl;
+        return;
+    }
+    if( v1.district == 0 ){
+        cout<<"Please identify the districts before checking distances"<<endl;
+        return;
+    }
+    // Find shortest distance.
 }
 
 
@@ -115,4 +163,26 @@ void Graph::shortestPath(std::string startingCity, std::string endingCity){
 //This method should implement a breadth first traversal from the startingCity
 //and assign all cities encountered the distID value
 void Graph::BFTraversalLabel(std::string startingCity, int distID){
+    vertex *city;
+    vertex *n;
+    queue<vertex *>  beenTo;
+    for( int i=0; i<vertices.size(); i++ ){
+        if( vertices[i].name == startingCity ){
+            city = &vertices[i];
+        }
+    }
+    city->visited = true;
+    city->district = distID;
+    beenTo.push(city);
+    while(!beenTo.empty()){
+        n = beenTo.front(); // front gets referance.
+        beenTo.pop();       // pop removes same elem from que.
+        for( int i=0; i<n->adj.size(); i++ ){
+            if( !n->adj[i].v->visited ){
+                n->adj[i].v->visited = true;
+                n->adj[i].v->district = distID;
+                beenTo.push(n->adj[i].v);
+            }
+        }
+    }
 }
