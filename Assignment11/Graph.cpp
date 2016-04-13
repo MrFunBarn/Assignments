@@ -12,6 +12,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <climits>
 
 #include "Graph.h"
 using namespace std;
@@ -176,54 +177,77 @@ void Graph::shortestPath(std::string startingCity, std::string endingCity){
         return;
     }
     // Find shortest distance.
-    v1->visited = true;
-    v1->distance = 0;
-    queue<vertex *> dist;
-    dist.push(v1);
-    vertex *n;
-    while( !dist.empty() )
+    Dijkstra(v1->name,v2->name);
+}
+
+
+void Graph::Dijkstra(string starting, string destination)
+{
+    vertex *startV;
+    vertex *endV;
+    vertex *s;
+    //vertex *solvedV;
+    vertex *parent;
+    vector<vertex *> solved;
+    int dist;
+    
+    // Serach for the starting and ending verticies and make pointers to those veritecs.
+    for( int i=0; i<vertices.size(); i++ )
     {
-       n = dist.front();
-       dist.pop();
-       for( int i=0; i < n->adj.size(); i++ )
-       {
-           if( !n->adj[i].v->visited )
-           {
-               n->adj[i].v->distance = n->distance + n->adj[i].weight;
-               n->adj[i].v->visited = true;
-               dist.push(n->adj[i].v);
-               if( i == 0 )
-               {
-                  n->adj[i].v->parent = n;
-               }
-               else
-               {
-                   //n->adj[i].v->parent = n->adj[i-1].v;
-                    n->adj[i].v->parent = dist.front()->parent;
-               }
-           }
-       }
+        if( vertices[i].name == starting )
+        {
+            startV = &vertices[i];
+        }
+        else if( vertices[i].name == destination )
+        {
+           endV = & vertices[i];
+        }
     }
-    stack<vertex *> path;
-    int x = 0;
-    vertex *tmp = v2;
-    if( v2->parent->name != v1->name)
+    startV->visited = true;
+    startV->distance = 0;
+    startV->previous = NULL;
+    solved.push_back(startV);
+    while( !endV->visited )
     {
-        //v2 = v2->parent->parent;
+        int minDistance = INT_MAX;
+        vertex *solvedV = NULL;
+        for( int i=0; i<solved.size(); i++ )
+        {
+            s = solved[i];
+            for( int j=0; j<s->adj.size(); j++ )
+            {
+                if( !s->adj[j].v->visited )
+                {
+                    dist = s->distance + s->adj[j].weight;
+                    if( dist < minDistance )
+                    {
+                        solvedV = s->adj[j].v;
+                        minDistance = dist;
+                        parent = s;
+                    }
+                }
+            }
+        }
+        solvedV->distance = minDistance;
+        solvedV->previous = parent;
+        solvedV->visited = true;
+        solved.push_back(solvedV);
     }
-    while( v2->name != v1->name )
+    cout<<"Shortest Path"<<endl;
+    vertex *tmp = endV;
+    vector<vertex *> printvec;
+    while( tmp->previous != NULL )
     {
-        //if( x=0 ) {v2 = v2->parent;x++;}
-        path.push(v2);
-        v2 = v2->parent;
+        printvec.push_back(tmp);
+        tmp = tmp->previous;
     }
-    cout<<path.size()<<','<<v1->name;
-    while( !path.empty() )
+    cout<<startV->name<<" - ";
+    for( int i=printvec.size()-1; i >0; i-- )
     {
-        cout<<','<<path.top()->name;
-        path.pop();
+        cout<<printvec[i]->name<<" - ";
     }
-    cout<<','<<tmp->name<<endl;
+    cout<<endV->name<<endl;
+    cout<<"Minimum Distance: "<<dist;
 }
 
 

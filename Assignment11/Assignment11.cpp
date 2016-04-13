@@ -20,13 +20,15 @@ int main(int argc, char *argv[]){
     int option = 0;
 
     // The main loop. runs until quit is selected.
-    while( option != 4 ){
+    while( option != 6 ){
         // Print the main menu.
         cout<<"======Main Menu======"<< endl
             <<"1. Print vertices"<< endl
             <<"2. Find districts"<< endl
             <<"3. Find shortest path"<< endl
-            <<"4. Quit"<< endl;
+            <<"4. Find shortest distance"<<endl
+            <<"5. Road trip"<<endl
+            <<"6. Quit"<< endl;
 
         // Grab the option and convert to int with stringstream.
         string s;
@@ -52,7 +54,7 @@ int main(int argc, char *argv[]){
             getline( cin, end );
             zombies.shortestPath(start, end);
         }
-        else if( option == 4 ){
+        else if( option == 6 ){
             cout << "Goodbye!" << endl;
         }
     }

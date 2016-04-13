@@ -35,6 +35,7 @@ struct vertex{
     int district;
     bool visited;
     int distance;
+    vertex *previous;
     std::vector<adjVertex> adj;
 };
 /*Another approach to storing the shortest path is to store a vector of
@@ -63,6 +64,7 @@ class Graph
         //call this from within assignDistricts to label the districts.
         //This method should implement a breadth first traversal from the startingCity
         //and assign all cities encountered the distID value
+        void Dijkstra(std::string starting, std::string destination);
         void BFTraversalLabel(std::string startingCity, int distID);
 
 };
