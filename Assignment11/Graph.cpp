@@ -259,8 +259,12 @@ void Graph::Dijkstra(string starting, string destination, bool isdistance)
 
 void Graph::roadTrip()
 {
+    vector<trip> trips;
     for( int x=0; x<vertices.size(); x++ )
     {
+        trip thisTrip;
+        //thisTrip.trip.push_back(&vertices[x]);
+        thisTrip.distance = 0;
     if( vertices[x].district == -1 ){
         cout<<"Please identify the districts before checking distances"<<endl;
         return;
@@ -273,13 +277,30 @@ void Graph::roadTrip()
                 vertices[i].adj[j].v->visited = false;
             }
         }
-    dFS(&vertices[x]);
-    cout<<"--------------"<<endl;
+    dFS(&vertices[x], &thisTrip);
+    trips.push_back(thisTrip);
     }
+    int d = INT_MAX;
+    vector<vertex *> t;
+    cout<<trips.size()<<endl;
+    for( int y=0; y<trips.size(); y++ )
+    {
+        if( trips[y].distance < d )
+        {
+            d = trips[y].distance;
+            t = trips[y].trip;
+        }
+    }
+    cout<<d<<",";//<<t[0]->name;
+    for( int i=t.size()-1; i >0; i-- )
+    {
+        cout<<t[i]->name<<",";
+    }
+    cout<<t.back()->name<<endl;
 }
 
 
-void Graph::dFS(vertex *vert)
+void Graph::dFS(vertex *vert, trip *thisTrip)
 {
     vert->visited = true;
     vert->distance = 0;
@@ -287,9 +308,11 @@ void Graph::dFS(vertex *vert)
     {
         if( !vert->adj[i].v->visited )
         {
-            vert->adj[i].v->distance = vert->distance + vert->adj[i].weight;
-            cout<<vert->adj[i].v->name<<endl;
-            DFS(vert->adj[i].v);
+            //vert->adj[i].v->distance = vert->distance + vert->adj[i].weight;
+            thisTrip->distance = thisTrip->distance + vert->adj[i].weight;
+            //cout<<vert->adj[i].v->name<<endl;
+            thisTrip->trip.push_back(vert->adj[i].v);
+            DFS(vert->adj[i].v, thisTrip);
         }
 
     }
@@ -297,16 +320,18 @@ void Graph::dFS(vertex *vert)
 }
 
 
-void Graph::DFS(vertex *vert)
+void Graph::DFS(vertex *vert, trip *thisTrip)
 {
     vert->visited = true;
     for( int i=0; i < vert->adj.size(); i++ )
     {
         if( !vert->adj[i].v->visited )
         {
-            vert->adj[i].v->distance = vert->distance + vert->adj[i].weight;
-            cout<<vert->adj[i].v->name<<endl;
-            DFS(vert->adj[i].v);
+            //vert->adj[i].v->distance = vert->distance + vert->adj[i].weight;
+            thisTrip->distance = thisTrip->distance + vert->adj[i].weight;
+            //cout<<vert->adj[i].v->name<<endl;
+            thisTrip->trip.push_back(vert->adj[i].v);
+            DFS(vert->adj[i].v, thisTrip);
         }
 
     }

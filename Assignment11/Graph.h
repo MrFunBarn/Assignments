@@ -72,8 +72,8 @@ class Graph
         //This method should implement a breadth first traversal from the startingCity
         //and assign all cities encountered the distID value
         void Dijkstra(std::string starting, std::string destination, bool isdistance);
-        void dFS(vertex *vert);
-        void DFS(vertex *vert);
+        void dFS(vertex *vert, trip *thisTrip);
+        void DFS(vertex *vert, trip *thisTrip);
         void BFTraversalLabel(std::string startingCity, int distID);
 
 };
