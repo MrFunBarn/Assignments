@@ -244,7 +244,7 @@ void Graph::Dijkstra(string starting, string destination)
     cout<<printvec.size()<<':'<<startV->name<<",";
     for( int i=printvec.size()-1; i >0; i-- )
     {
-        cout<<printvec[i]->name<<"-";
+        cout<<printvec[i]->name<<",";
     }
     cout<<endV->name<<endl;
     cout<<"Minimum Distance: "<<dist;
