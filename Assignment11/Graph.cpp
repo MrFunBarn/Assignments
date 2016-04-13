@@ -138,7 +138,7 @@ void Graph::assignDistricts(){
 }
 
 
-void Graph::shortestPath(std::string startingCity, std::string endingCity){
+void Graph::shortestPath(std::string startingCity, std::string endingCity, bool distance){
     vertex *v1;
     vertex *v2;
     bool f1 = false;
@@ -177,7 +177,7 @@ void Graph::shortestPath(std::string startingCity, std::string endingCity){
         return;
     }
     // Find shortest distance.
-    Dijkstra(v1->name,v2->name);
+    Dijkstra(v1->name,v2->name, bool distance);
 }
 
 
@@ -241,7 +241,14 @@ void Graph::Dijkstra(string starting, string destination)
         printvec.push_back(tmp);
         tmp = tmp->previous;
     }
-    cout<<printvec.size()<<':'<<startV->name<<",";
+    if(!distance)
+    {
+        cout<<printvec.size()<<':'<<startV->name<<",";
+    }
+    else
+    {
+        cout<<endV->distance<<':'<<startV->name<<",";
+    }
     for( int i=printvec.size()-1; i >0; i-- )
     {
         cout<<printvec[i]->name<<",";

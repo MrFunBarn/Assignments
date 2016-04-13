@@ -52,7 +52,16 @@ int main(int argc, char *argv[]){
             getline( cin, start );
             cout<<"Enter an ending city:"<<endl;
             getline( cin, end );
-            zombies.shortestPath(start, end);
+            zombies.shortestPath(start, end, false);
+        }
+        else if( option == 4 ){
+            string start;
+            string end;
+            cout<<"Enter a starting city:"<<endl;
+            getline( cin, start );
+            cout<<"Enter an ending city:"<<endl;
+            getline( cin, end );
+            zombies.shortestPath(start, end, true);
         }
         else if( option == 6 ){
             cout << "Goodbye!" << endl;
