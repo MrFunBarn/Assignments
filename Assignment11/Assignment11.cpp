@@ -63,6 +63,9 @@ int main(int argc, char *argv[]){
             getline( cin, end );
             zombies.shortestPath(start, end, true);
         }
+        else if( option == 5 ){
+            zombies.roadTrip();
+        }
         else if( option == 6 ){
             cout << "Goodbye!" << endl;
         }

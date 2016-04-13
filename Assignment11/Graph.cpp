@@ -138,7 +138,7 @@ void Graph::assignDistricts(){
 }
 
 
-void Graph::shortestPath(std::string startingCity, std::string endingCity, isdistance){
+void Graph::shortestPath(std::string startingCity, std::string endingCity, bool isdistance){
     vertex *v1;
     vertex *v2;
     bool f1 = false;
@@ -172,16 +172,16 @@ void Graph::shortestPath(std::string startingCity, std::string endingCity, isdis
         cout<<"No safe path between cities"<<endl;
         return;
     }
-    if( v1->district == 0 ){
+    if( v1->district == -1 ){
         cout<<"Please identify the districts before checking distances"<<endl;
         return;
     }
     // Find shortest distance.
-    Dijkstra(v1->name,v2->name, distance);
+    Dijkstra(v1->name,v2->name, isdistance);
 }
 
 
-void Graph::Dijkstra(string starting, string destination, isdestination)
+void Graph::Dijkstra(string starting, string destination, bool isdistance)
 {
     vertex *startV;
     vertex *endV;
@@ -233,7 +233,7 @@ void Graph::Dijkstra(string starting, string destination, isdestination)
         solvedV->visited = true;
         solved.push_back(solvedV);
     }
-    cout<<"Shortest Path"<<endl;
+    //cout<<"Shortest Path"<<endl;
     vertex *tmp = endV;
     vector<vertex *> printvec;
     while( tmp->previous != NULL )
@@ -243,19 +243,76 @@ void Graph::Dijkstra(string starting, string destination, isdestination)
     }
     if(!isdistance)
     {
-        cout<<printvec.size()<<':'<<startV->name<<",";
+        cout<<printvec.size()<<','<<startV->name<<",";
     }
     else
     {
-        cout<<endV->distance<<':'<<startV->name<<",";
+        cout<<endV->distance<<','<<startV->name<<",";
     }
     for( int i=printvec.size()-1; i >0; i-- )
     {
         cout<<printvec[i]->name<<",";
     }
     cout<<endV->name<<endl;
-    cout<<"Minimum Distance: "<<dist;
 }
+
+
+void Graph::roadTrip()
+{
+    for( int x=0; x<vertices.size(); x++ )
+    {
+    if( vertices[x].district == -1 ){
+        cout<<"Please identify the districts before checking distances"<<endl;
+        return;
+    }
+        for( int i=0; i<vertices.size(); i++ )
+        {
+            vertices[i].visited = false;
+            for( int j=0; j<vertices[i].adj.size(); j++ )
+            {
+                vertices[i].adj[j].v->visited = false;
+            }
+        }
+    dFS(&vertices[x]);
+    cout<<"--------------"<<endl;
+    }
+}
+
+
+void Graph::dFS(vertex *vert)
+{
+    vert->visited = true;
+    vert->distance = 0;
+    for( int i=0; i < vert->adj.size(); i++ )
+    {
+        if( !vert->adj[i].v->visited )
+        {
+            vert->adj[i].v->distance = vert->distance + vert->adj[i].weight;
+            cout<<vert->adj[i].v->name<<endl;
+            DFS(vert->adj[i].v);
+        }
+
+    }
+    
+}
+
+
+void Graph::DFS(vertex *vert)
+{
+    vert->visited = true;
+    for( int i=0; i < vert->adj.size(); i++ )
+    {
+        if( !vert->adj[i].v->visited )
+        {
+            vert->adj[i].v->distance = vert->distance + vert->adj[i].weight;
+            cout<<vert->adj[i].v->name<<endl;
+            DFS(vert->adj[i].v);
+        }
+
+    }
+    
+}
+
 
 
 //call this from within assignDistricts to label the districts.

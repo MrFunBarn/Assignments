@@ -46,6 +46,12 @@ struct queueVertex{
     int distance;
     std::vector<vertex *> path;
 };
+
+struct trip{
+    int distance;
+    std::vector<vertex *> trip;
+};
+
 class Graph
 {
     public:
@@ -56,6 +62,7 @@ class Graph
         void displayEdges();
         void assignDistricts();
         void shortestPath(std::string startingCity, std::string endingCity, bool isdistance);
+        void roadTrip();
 
     protected:
     private:
@@ -65,6 +72,8 @@ class Graph
         //This method should implement a breadth first traversal from the startingCity
         //and assign all cities encountered the distID value
         void Dijkstra(std::string starting, std::string destination, bool isdistance);
+        void dFS(vertex *vert);
+        void DFS(vertex *vert);
         void BFTraversalLabel(std::string startingCity, int distID);
 
 };
