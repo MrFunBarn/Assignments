@@ -55,7 +55,7 @@ class Graph
         void addVertex(std::string name);
         void displayEdges();
         void assignDistricts();
-        void shortestPath(std::string startingCity, std::string endingCity, bool distance);
+        void shortestPath(std::string startingCity, std::string endingCity, bool isdistance);
 
     protected:
     private:
@@ -64,7 +64,7 @@ class Graph
         //call this from within assignDistricts to label the districts.
         //This method should implement a breadth first traversal from the startingCity
         //and assign all cities encountered the distID value
-        void Dijkstra(std::string starting, std::string destination, bool distance);
+        void Dijkstra(std::string starting, std::string destination, bool isdistance);
         void BFTraversalLabel(std::string startingCity, int distID);
 
 };
