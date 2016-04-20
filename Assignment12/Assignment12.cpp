@@ -49,10 +49,19 @@ int main(int argc, char *argv[]){
             Hash.insertMovie(title, y); 
         }
         else if( option == 2 ){
+            string title;
+            cout<<"Enter title:"<<endl;
+            getline( cin, title );
+            Hash.deleteMovie(title);
         }
         else if( option == 3 ){
+            string title;
+            cout<<"Enter title:"<<endl;
+            getline( cin, title );
+            Hash.findMovie(title);
         }
         else if( option == 4 ){
+            Hash.printTableContents();
         }
         else if( option == 5 ){
             cout << "Goodbye!" << endl;

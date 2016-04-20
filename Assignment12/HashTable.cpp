@@ -28,18 +28,42 @@ HashTable::~HashTable()
 
 void HashTable::printTableContents()
 {
+    bool empty = true;
+    for( int i=0; i<tableSize; i++ )
+    {
+        if( hashTable[i] != NULL ) {
+            empty = false;
+            }
+    }
+    if( empty == true )
+    {
+        cout<<"empty"<<endl;
+        return;
+    }
+    for( int i=0; i<tableSize; i++ )
+    {
+        if( hashTable[i] != NULL ){
+            HashElem *tmp = hashTable[i];
+            cout<<tmp->title<<":"<<tmp->year<<endl;
+            while( tmp->next != NULL )
+            {
+                tmp = tmp->next;
+                cout<<tmp->title<<":"<<tmp->year<<endl;
+            }
+        }
+    }
 }
 
 
 void HashTable::insertMovie(std::string name, int year)
 {
-    int i = hashSum(name, year);
+    int i = hashSum(name);
     HashElem *tmp = new HashElem( name, year );
     if( hashTable[i] == NULL )
     {
         hashTable[i] = tmp;
     }
-    else if( name == hashTable->title )
+    else if( name == hashTable[i]->title )
     {
         return;
     }
@@ -59,21 +83,81 @@ void HashTable::insertMovie(std::string name, int year)
         tmp->previous = par;
         par->next = tmp;
     }
-    cout<<i<<endl;
 }
 
 
 void HashTable::deleteMovie(std::string name)
 {
+    int i = hashSum(name);
+    HashElem *tmp = hashTable[i];
+    if( tmp == NULL )
+    {
+        return;
+    }
+    else if( tmp->title == name && tmp->next == NULL )
+    {
+        //delete hashTable[i];
+        //tmp = NULL;
+        delete tmp;
+        hashTable[i] = NULL;
+    }
+    else if( tmp->title == name && tmp->next != NULL )
+    {
+        hashTable[i] = tmp->next; 
+        hashTable[i]->previous = NULL;
+        delete tmp;
+    }
+    else if( tmp->title != name && tmp->next != NULL )
+    {
+        while( tmp->next != NULL )
+        {
+            tmp = tmp->next;
+            if( tmp->title == name )
+            {
+                tmp->previous->next = tmp->next;
+                delete tmp;
+                return;
+            }
+        }
+    }
 }
 
 
 void HashTable::findMovie(std::string name)
 {
+    int i = hashSum(name);
+    HashElem *tmp = hashTable[i];
+    if( tmp == NULL )
+    {
+        cout<<"not found"<<endl;
+    }
+    else if( tmp->title == name && tmp->next == NULL )
+    {
+        cout<<i<<":"<<name<<":"<<tmp->year<<endl;
+    }
+    else if( tmp->title == name && tmp->next != NULL )
+    {
+        cout<<i<<":"<<name<<":"<<tmp->year<<endl;
+    }
+    else if( tmp->title != name && tmp->next != NULL )
+    {
+        while( tmp->next != NULL )
+        {
+            tmp = tmp->next;
+            if( tmp->title == name )
+            {
+                cout<<i<<":"<<name<<":"<<tmp->year<<endl;
+            }
+        }
+    }
+    else
+    {
+        cout<<"not found"<<endl;
+    }
 }
 
 
-int HashTable::hashSum(std::string x, int s)
+int HashTable::hashSum(std::string x)
 {
     int sum = 0;
     for( int i=0; i < x.size(); i++ )

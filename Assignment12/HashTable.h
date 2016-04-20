@@ -36,7 +36,7 @@ class HashTable
 		void deleteMovie(std::string name);
 		void findMovie(std::string name);
 	private:
-		int hashSum(std::string x, int s);
+		int hashSum(std::string x);
 		int tableSize = 10;
 		HashElem* hashTable[10];
 
