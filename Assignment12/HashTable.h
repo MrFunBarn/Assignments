@@ -1,3 +1,9 @@
+/*
+*   Brandon Bell
+*   Assignment12
+*   Recitation: Th 1030am
+*   Guogui Ding
+*/
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include <string>
@@ -7,7 +13,7 @@ struct HashElem{
 	std::string title;
 	int year;
 	HashElem *next;
-    HashElem *previous;
+        HashElem *previous;
 
 	HashElem(){};
 	HashElem(std::string in_title, int in_year)

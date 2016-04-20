@@ -5,17 +5,22 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 CC	makefile	/^CC = g++ -g$/;"	m
-Files	makefile	/^Files = Assignment11.cpp Graph.cpp Graph.h$/;"	m
-HASHTABLE_H	HashTable.h	2;"	d
+Files	makefile	/^Files = Assignment12.cpp HashTable.cpp HashTable.h$/;"	m
+HASHTABLE_H	HashTable.h	8;"	d
 HashElem	HashTable.h	/^	HashElem(){};$/;"	f	struct:HashElem
 HashElem	HashTable.h	/^	HashElem(std::string in_title, int in_year)$/;"	f	struct:HashElem
 HashElem	HashTable.h	/^struct HashElem{$/;"	s
 HashTable	HashTable.h	/^class HashTable$/;"	c
+deleteMovie	HashTable.cpp	/^void HashTable::deleteMovie(std::string name)$/;"	f	class:HashTable
+findMovie	HashTable.cpp	/^void HashTable::findMovie(std::string name)$/;"	f	class:HashTable
+hashSum	HashTable.cpp	/^int HashTable::hashSum(std::string x, int s)$/;"	f	class:HashTable
 hashTable	HashTable.h	/^		HashElem* hashTable[10];$/;"	m	class:HashTable
-main	Assignment11.cpp	/^int main(int argc, char *argv[]){$/;"	f
+insertMovie	HashTable.cpp	/^void HashTable::insertMovie(std::string name, int year)$/;"	f	class:HashTable
+main	Assignment12.cpp	/^int main(int argc, char *argv[]){$/;"	f
 next	HashTable.h	/^	HashElem *next;$/;"	m	struct:HashElem
-out	makefile	/^out = Assignment11$/;"	m
-previous	HashTable.h	/^    HashElem *previous;$/;"	m	struct:HashElem
+out	makefile	/^out = Assignment12$/;"	m
+previous	HashTable.h	/^        HashElem *previous;$/;"	m	struct:HashElem
+printTableContents	HashTable.cpp	/^void HashTable::printTableContents()$/;"	f	class:HashTable
 tableSize	HashTable.h	/^		int tableSize = 10;$/;"	m	class:HashTable
 title	HashTable.h	/^	std::string title;$/;"	m	struct:HashElem
 year	HashTable.h	/^	int year;$/;"	m	struct:HashElem

@@ -1,9 +1,9 @@
 # Compiler using debug symbols.
-CC = g++ -g
+CC = g++ -g -std=c++11
 # Output filename!
-out = Assignment11
+out = Assignment12
 # Define the files to compile.
-Files = Assignment11.cpp Graph.cpp Graph.h
+Files = Assignment12.cpp HashTable.cpp HashTable.h
 
 all:
 	$(CC) -o $(out) $(Files) 
@@ -11,5 +11,3 @@ all:
 clean:
 	rm -f $(out)
 
-zip:
-	zip Assignment11.zip $(files)
